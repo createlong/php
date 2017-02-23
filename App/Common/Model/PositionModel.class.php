@@ -79,6 +79,7 @@ class PositionModel extends Model {
 		}
 		return  $this->_db->where('id='.$id)->save($data); // 根据条件更新记录
 	}
+
 	// 获取正常的推荐位内容
 	public function getNormalPositions() {
 		$conditions = array('status'=>1);

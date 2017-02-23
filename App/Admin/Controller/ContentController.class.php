@@ -122,6 +122,7 @@ class ContentController extends CommonController
             }
 
             $news = D('News')->getNewsByIds($newsIdArr);
+       
             if(!$news)
             {
                 return show(0,'推送的内容没有找到');

@@ -4,7 +4,6 @@ use Think\Model;
 
 /**
  * 推荐位wmodel操作
- * @author  singwa
  */
 class PositionContentModel extends Model {
 	private $_db = '';
@@ -12,19 +11,48 @@ class PositionContentModel extends Model {
 	public function __construct() {
 		$this->_db = M('position_content');
 	}
-
-	public function select($data = array(),$limit=0) {
+	//后台分页
+	public function selects($data,$p,$pageSize) {
 
 		if($data['title']) {
 			$data['title'] = array('like', '%'.$data['title'].'%');
 		}
-		$this->_db->where($data)->order('listorder desc ,id desc');
-		if($limit) {
+		$data['status'] = array('neq',-1);
+		$offset = ($p-1) * $pageSize;
+		$html = $this->_db->where($data)
+				->order('`listorder` desc,`id` desc')
+				->limit($offset,$pageSize)
+				->select();
+		return $html;
+		//echo $this->_db->getLastSql();exit;
+	}
+
+	/**
+	 * @param array $cond 要获取的条件 包括 status 状态 position_id 推送的位置
+	 * @param string $limit 要获取的条件
+	 * @return mixed
+	 */
+	public function home_select($cond=array(),$limit='')
+	{
+		$this->_db->order('`listorder` desc ,`id` desc');
+		if($limit)
+		{
 			$this->_db->limit($limit);
 		}
 		$list = $this->_db->select();
-		//echo $this->_db->getLastSql();exit;
 		return $list;
+	}
+
+	//推荐位内容个数
+	public function count($cond)
+	{
+		if($cond['title'] && isset($cond['title']))
+		{
+			$cond['title'] = array('like','%'.$cond['title'].'%');
+		}
+		$cond['status'] = array('neq',-1);
+		return $this->_db->where($cond)->count();
+
 	}
 
 	public function find($id) {
@@ -77,13 +105,23 @@ class PositionContentModel extends Model {
 	}
 
 	/**7 排序**/
-	public function updateListorderById($id, $listorder) {
+	public function checkListorder($id, $listorder) {
         if(!$id || !is_numeric($id)) {
             throw_exception('ID不合法');
         }
 
         $data = array('listorder'=>intval($listorder));
         return $this->_db->where('id='.$id)->save($data);
-
     }
+	//** 状态 */
+	public function checkStatus($cond)
+	{
+		if($cond['status'] ==1 )
+		{
+			return $this->_db->where('id='.$cond['id'])->setField('status',$cond['status']);
+		}else{
+			return $this->_db->where('id='.$cond['id'])->setField('status',$cond['status']);
+		}
+	}
+
 }

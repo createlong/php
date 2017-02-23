@@ -107,7 +107,7 @@
                     <div class="input-group">
                         <span class="input-group-addon">推荐位</span>
                         <select class="form-control" name="position_id">
-                            <?php if(is_array($positions)): foreach($positions as $key=>$position): ?><option value="<?php echo ($position["id"]); ?>"<?php if($position['id'] == $positionId): ?>selected="selected"<?php endif; ?> ><?php echo ($position["name"]); ?></option><?php endforeach; endif; ?>
+                            <?php if(is_array($position)): foreach($position as $key=>$position): ?><option value="<?php echo ($position["id"]); ?>"<?php if($position['id'] == $positionId): ?>selected="selected"<?php endif; ?> ><?php echo ($position["name"]); ?></option><?php endforeach; endif; ?>
                         </select>
                     </div>
                 </div>
@@ -142,14 +142,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <?php if(is_array($contents)): $i = 0; $__LIST__ = $contents;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <?php if(is_array($PositionContentRes)): $i = 0; $__LIST__ = $PositionContentRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+                                <td><input type="text" size="4" name="listorder[<?php echo ($vo["id"]); ?>]" value="<?php echo ($vo["listorder"]); ?>"></td>
+                                <td><?php echo ($vo["id"]); ?></td>
+                                <td><?php echo ($vo["title"]); ?></td>
+                                <td><?php echo (date("Y-m-d H:i",$vo["create_time"])); ?></td>
+                                <td><?php echo (is_hasthumb($vo["thumb"])); ?></td>
                                 <td>
-
+                                    <span  attr-status="<?php if($vo['status'] == 1): ?>0<?php else: ?>1<?php endif; ?>"  attr-id="<?php echo ($vo["id"]); ?>" class="sing_cursor singcms-on-off" id="singcms-on-off" ><?php echo (changeStatus($vo["status"])); ?></span>
                                 </td>
                                 <td>
                                     <span class="sing_cursor glyphicon glyphicon-edit" aria-hidden="true" id="singcms-edit" attr-id="<?php echo ($vo["id"]); ?>" ></span>
@@ -187,6 +187,7 @@
         'set_status_url' : './admin.php?c=positioncontent&a=setStatus',
         'add_url' : './admin.php?c=positioncontent&a=add',
         'listorder_url' : './admin.php?c=positioncontent&a=listorder',
+
     }
 
 </script>

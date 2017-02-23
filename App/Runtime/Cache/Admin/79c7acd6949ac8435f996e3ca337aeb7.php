@@ -178,7 +178,7 @@
 	};
 </script>
 <!-- /#wrapper -->
-<script type="text/javascript" src="/PHP/Public/js/admin/form.js"></script>
+<!--<script type="text/javascript" src="/PHP/Public/js/admin/form.js"></script>-->
 <script src="/PHP/Public/js/admin/image.js"></script>
 <script src="/PHP/Public/js/admin/common.js"></script>
 

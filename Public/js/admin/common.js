@@ -61,6 +61,7 @@ $("#button-listorder").on('click',function()
 {
     ///获取内容
     var data = $("#singcms-listorder").serializeArray();
+
     formData = {};
     $(data).each(function(i)
     {
@@ -131,10 +132,46 @@ $(".page a").on('click',function()
     return false;
 })
 
+
+//**
+$(".pages a").on('click',function()
+{
+    var pageObj = this;
+    var pageUrl = pageObj.href;
+    console.log(pageUrl);
+    $.ajax({
+        type:'get',
+        url:pageUrl,
+        success:function(res)
+        {
+            console.log(res['news']);
+            var obj = res['news'];
+            var str="";
+               for(var i in obj)
+               {
+
+                   str+="<dl>";
+                   str+="<dt>"+obj[i]['title']+"</dt>";
+                   str+="<dd class='news-img'><a href='./index.php?c=detail&id="+obj[i]['news_id']+"'><img width='200' height='120' src='"+obj[i]['thumb']+"' alt="+obj[i]['title']+"></a></dd>";
+                   str+="<dd class='news-intro'>"+obj[i]['description']+"</dd>";
+                   str+="<dd class='news-info'>"+obj[i]['keywords']+"<span>"+obj[i]['create_time']+"</span> 阅读("+obj[i]['count']+")</dd>";
+                   str+="</dl>";
+               }
+            console.log(str);
+            $(".news-list").html('');
+            $(".news-list").html(str);
+            //$(".pages").html('');
+            //$(".pages").html(res['show']);
+
+        }
+    })
+    return false;
+})
 //推送功能
 $("#singcms-push").on('click',function()
 {
     var id = $("#select-push").val();
+
     if(id == 0)
     {
         return dialog.error('请选择推荐位');
@@ -145,6 +182,7 @@ $("#singcms-push").on('click',function()
     {
         pushu[i] = $(this).val();
     })
+
     dataPost['position_id'] = id;
     dataPost['pushu'] = pushu;
     var url = SCOPE.push_url;

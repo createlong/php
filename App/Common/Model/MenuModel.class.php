@@ -66,7 +66,7 @@ class MenuModel extends Model
             return $this->where('menu_id='.$data['id'])->setField('status',$data['status']);
         }
     }
-
+    //后台菜单
     public function getMenuNav()
     {
         $data = array(
@@ -75,14 +75,26 @@ class MenuModel extends Model
         );
         return $this->where($data)->field('menu_id,name,m,c,f')->select();
     }
-
+    //前台菜单
     public function getBarNav()
     {
+
         $data = array(
             'status'=>1,
             'type'=>2,
         );
         return $this->where($data)->field('menu_id,name,m,c,f')->select();
     }
+    //** 寻找单条数据 */
+    public function finds($menu_id)
+    {
+        $cond =array(
+            'status'=>1,
+            'menu_id'=>$menu_id
+        );
+     return $this->where($cond)->find();
+
+    }
+
 
 }

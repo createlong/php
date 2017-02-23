@@ -85,10 +85,6 @@ class NewsModel extends Model
         {
             E('id不合法');
         }
-        if(!$value || !is_numeric($value))
-        {
-            E('排数值不合法');
-        }
 
         $data['listorder'] = $value;
         return $this->where('news_id='.$id)->save($data);
@@ -110,8 +106,9 @@ class NewsModel extends Model
     }
 
     //单挑查询
-    public function find($news_id)
+    public function finds($news_id)
     {
+
         return $this->find($news_id);
     }
 
@@ -123,6 +120,17 @@ class NewsModel extends Model
          $cond['news_id'] = array('in',$newsIdsStr);
         return $this->where($cond)->select();
     }
+
+    /**
+     * @param array $cond
+     * @param int $limit
+     * @return mixed
+     */
+    public function getRank($cond=array(),$limit=10)
+    {
+        return $this->where($cond)->limit($limit)->select();
+    }
+
 
 
 
