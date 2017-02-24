@@ -72,4 +72,16 @@ class UserModel extends Model
             return $this->where('user_id='.$data['id'])->setField('status',$data['status']);
         }
     }
+
+
+    public function getLastLoginUsers() {
+        $time = mktime(0,0,0,date("m"),date("d"),date("Y"));
+        $data = array(
+            'status' => 1,
+            'lastlogintime' => array("gt",$time),
+        );
+
+        $res = $this->where($data)->count();
+        return $res['tp_count'];
+    }
 }

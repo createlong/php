@@ -5,4 +5,5 @@ return array(
     'URL_MODULE'=>0,
     'URL_CASE_INSENSETIVE'=>'true',
     'SHOW_ERROR_MSG'=>'true',
+    'HTML_FILE_SUFFIX' => '.html',
 );

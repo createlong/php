@@ -58,4 +58,10 @@ class LoginController extends Controller
         $code = new \Think\Verify($config);
         $code->entry();
     }
+
+    public function loginout()
+    {
+        session('user',null);
+        redirect('./admin.php?c=login');
+    }
 }

@@ -131,7 +131,28 @@ class NewsModel extends Model
         return $this->where($cond)->limit($limit)->select();
     }
 
+    //获取计数器
+    public function getNewsByNewsIdIn($newsIds)
+    {
+        if(!$newsIds && !is_array($newsIds))
+        {
+            E('数据异常');
+        }
+        $cond['news_id'] = array('in',$newsIds);
+        return $this->where($cond)->getField('news_id,count');
+    }
+    //更新
+    public function updateCount($id,$count)
+    {
+        return $this->where('news_id='.$id)->setField('count',$count);
+    }
 
+    public function maxcount() {
+        $data = array(
+            'status' => 1,
+        );
+        return $this->where($data)->order('count desc')->limit(1)->find();
+    }
 
 
 }

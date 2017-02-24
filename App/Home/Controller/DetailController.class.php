@@ -22,6 +22,9 @@ class DetailController extends CommonController
         {
             $this->error('页面错误');
         }
+        //更新阅读
+        $count = intval($news['count']) + 1;
+        D('News')->updateCount($id,$count);
         $news_content = D('NewsContent')->finds($id);
         $news['content'] = htmlspecialchars_decode($news_content);
 
