@@ -66,15 +66,13 @@ class ContentController extends CommonController
                    return show(0,$news->getError());
                }
                $contentInsert = D('News')->insert($data);
-               if(!$contentInsert)
+               if($contentInsert)
                {
-                   return show(0,'文章添加失败',array('jump_url'=>$jump_url));
+                   $cond['content'] = $data['content'];
+                   $cond['news_id'] = $contentInsert;
                }
-               $cond = array(
-                  'content'=>$data['content'],
-                  'news_id'=>$contentInsert,
-               );
-                $newsContentRes = D('NewsContent')->insertContent($cond);
+
+                $newsContentRes = D('NewsContent')->insert($cond);
                if(!$newsContentRes)
                {
                    return show(0,'文章内容添加失败',array('jump_url'=>$jump_url));

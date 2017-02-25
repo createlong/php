@@ -15,11 +15,18 @@ class IndexController extends CommonController {
         }
         //首页大图
         $topPic = D('PositionContent')->home_select(array('status'=>1,'position_id'=>1),1);
-
-        $advNew = D('PositionContent')->home_select(array('status'=>1,'position_id'=>1),2); //广告位
-        $getRank = $this->getRank(); //文章排行
+        //首页三小兔
+        $threePic = D('PositionContent')->home_select(array('status'=>1,'position_id'=>2),3);
+        //广告位
+        $advNew = D('PositionContent')->home_select(array('status'=>1,'position_id'=>3),2);
+        //文章排行
+        $getRank = $this->getRank();
+        //显眼的列表
+        $newsList = D('News')->home_select(10);
         $this->assign('result',array(
             'topPic'=>$topPic,
+            'threePic'=>$threePic,
+            'newsList'=>$newsList,
             'advNews'=>$advNew,
             'rankNews'=>$getRank,
         ));

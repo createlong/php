@@ -154,5 +154,17 @@ class NewsModel extends Model
         return $this->where($data)->order('count desc')->limit(1)->find();
     }
 
+    //前台更新
+    public function home_select($limit)
+    {
+        $cond = array('status'=>1);
+        $this->where($cond)->order('`news_id` desc,`listorder` desc');
+        if($limit)
+        {
+            $this->limit($limit);
+        }
+        return $this->select();
+    }
+
 
 }

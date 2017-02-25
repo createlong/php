@@ -10,7 +10,7 @@
           </div>
           <div class="banner-right">
             <ul>
-              <volist name="result['topSmailNews']" id="vo">
+              <volist name="result['threePic']" id="vo">
               <li>
                 <a target="_blank" href="./index.php?c=detail&id={$vo.news_id}"><img width="150" height="113" src="{$vo.thumb}" alt="{$vo.title}"></a>
               </li>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="news-list">
-          <volist name="result['listNews']" id="vo">
+          <volist name="result['newsList']" id="vo">
           <dl>
             <dt><a target="_blank" href="./index.php?c=detail&id={$vo.news_id}">{$vo.title}</a></dt>
             <dd class="news-img">

@@ -35,7 +35,7 @@ class UserModel extends Model
             'user_name'=>$data['username'],
             'user_pwd'=>md5($data['password']),
             'create_time'=>time(),
-            'last_time'=>time(),
+            'lastlogintime'=>time(),
         );
 
         return $this->add($result);
@@ -46,7 +46,7 @@ class UserModel extends Model
         $tatol = ($p-1) * $pageSize;
         $data['status'] = array('neq',-1);
         return $this->where($data)
-            ->field('user_id,user_name,last_time,status')
+            ->field('user_id,user_name,lastlogintime,status')
             ->order('user_id desc')
             ->limit($tatol,$pageSize)
             ->select();

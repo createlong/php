@@ -26,8 +26,8 @@ class DetailController extends CommonController
         $count = intval($news['count']) + 1;
         D('News')->updateCount($id,$count);
         $news_content = D('NewsContent')->finds($id);
-        $news['content'] = htmlspecialchars_decode($news_content);
-
+        $news['content'] = htmlspecialchars_decode($news_content['content']);
+//        p($news['content']);exit();
         $advNew = D('PositionContent')->home_select(array('status'=>1,'position_id'=>1),2); //广告位
         $getRank = $this->getRank(); //文章排行
 
